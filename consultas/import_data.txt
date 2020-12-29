@@ -1,0 +1,49 @@
+SELECT aws_s3.table_import_from_s3(
+    'person.person',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Person.Person.csv',
+    'us-west-1');
+
+
+SELECT aws_s3.table_import_from_s3(
+    'production.product',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Production.Product.csv',
+    'us-west-1');
+    
+
+SELECT aws_s3.table_import_from_s3(
+    'sales.customer',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Sales.Customer.csv',
+    'us-west-1');
+    
+SELECT aws_s3.table_import_from_s3(
+    'sales.salesOrderDetail',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Sales.SalesOrderDetail.csv',
+    'us-west-1');
+    
+SELECT aws_s3.table_import_from_s3(
+    'sales.salesOrderHeader',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Sales.SalesOrderHeader.csv',
+    'us-west-1');
+    
+SELECT aws_s3.table_import_from_s3(
+    'sales.SpecialOfferProduct',
+    '',
+    '(FORMAT CSV, HEADER true, DELIMITER ''|'')',
+    'desafio00',
+    'Sales.SpecialOfferProduct.csv',
+    'us-west-1');

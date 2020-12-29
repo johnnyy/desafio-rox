@@ -1,0 +1,135 @@
+CREATE SCHEMA Person;
+CREATE SCHEMA Production;
+CREATE SCHEMA Sales;
+
+CREATE TABLE Person.Person (
+    BussinessEntityID VARCHAR PRIMARY KEY,
+    PersonType VARCHAR,
+    NameStyle VARCHAR,
+    Title VARCHAR,
+    FirstName VARCHAR,
+    MiddleName VARCHAR,
+    LastName VARCHAR,
+    Suffix VARCHAR,
+    EmailPromotion VARCHAR,
+    AdditionalContactInfo VARCHAR,
+    Demographics VARCHAR,
+    rowguid VARCHAR,
+    ModifiedDate TIMESTAMP
+);
+
+CREATE TABLE Production.Product (
+    ProductID VARCHAR PRIMARY KEY,
+    Name VARCHAR,
+    ProductNumber VARCHAR,
+    MakeFlag VARCHAR,
+    FinishedGoodsFlag VARCHAR,
+    Color VARCHAR,
+    SafetyStockLevel VARCHAR,
+    ReorderPoint VARCHAR,
+    StandardCost VARCHAR,
+    ListPrice VARCHAR,
+    Size VARCHAR,
+    SizeUnitMeasureCode VARCHAR,
+    WeightUnitMeasureCode VARCHAR,
+    Weight VARCHAR,
+    DaysTOManufacture INTEGER,
+    ProductLine VARCHAR,
+    Class VARCHAR,
+    Style VARCHAR,
+    ProductSubcategoryID VARCHAR,
+    ProductModelID VARCHAR,
+    SellStartDate TIMESTAMP,
+    SellEndDate VARCHAR,
+    DiscontinuedDate VARCHAR,
+    rowguid VARCHAR,
+    ModifiedDate TIMESTAMP
+);
+
+CREATE TABLE Sales.Customer (
+    CustomerID VARCHAR PRIMARY KEY,
+    PersonID VARCHAR,
+    StoreID VARCHAR,
+    TerritoryID VARCHAR,
+    AccountNumber VARCHAR,
+    rowguid VARCHAR,
+    ModifiedDate TIMESTAMP
+
+);
+
+CREATE TABLE Sales.SpecialOfferProduct (
+    SpecialOfferID VARCHAR PRIMARY KEY,
+    ProductID VARCHAR PRIMARY KEY,
+    rowguid VARCHAR,
+    ModifiedDate TIMESTAMP
+);
+
+CREATE TABLE Sales.SalesOrderHeader (
+    SalesOrderID VARCHAR PRIMARY KEY,
+    RevisionNumber VARCHAR,
+    OrderDate TIMESTAMP,
+    DueDate TIMESTAMP,
+    ShipDate TIMESTAMP,
+    Status VARCHAR,
+    OnlineOrderFlag VARCHAR,
+    SalesOrderNumber VARCHAR,
+    PurchaseOrderNumber VARCHAR,
+    AccountNumber VARCHAR,
+    CustomerID VARCHAR,
+    SalesPersonID VARCHAR,
+    TerritoryiD VARCHAR,
+    BillToAddressID VARCHAR,
+    ShipToAddressID VARCHAR,
+    ShipMethodID VARCHAR,
+    CreditCardID VARCHAR,
+    CreditCardApprovalCode VARCHAR,
+    CurrencyRateID VARCHAR,
+    SubTotal VARCHAR,
+    TaxAmt VARCHAR,
+    Freight VARCHAR,
+    TotalDue FLOAT,
+    Comment VARCHAR,
+    rowguid VARCHAR,
+    ModifiedDate TIMESTAMP
+);
+
+CREATE TABLE Sales.SalesOrderDetail (
+    SalesOrderID VARCHAR,
+    SalesOrderDetailID VARCHAR PRIMARY KEY,
+    CarrierTrackingNumber VARCHAR,
+    OrderQty INTEGER,
+    ProductID VARCHAR,
+    SpecialOfferID VARCHAR,
+    UnitPrice VARCHAR,
+    UnitPriceDiscount VARCHAR,
+    LineTotal VARCHAR,
+    rowquid VARCHAR,
+    ModifieldDate TIMESTAMP
+);
+ 
+ALTER TABLE Sales.Customer ADD CONSTRAINT FK_Customer_2
+    FOREIGN KEY (CustomerID)
+    REFERENCES Person.Person (BussinessEntityID);
+ 
+ 
+ALTER TABLE Sales.SalesOrderHeader ADD CONSTRAINT FK_SalesOrderHeader_3
+    FOREIGN KEY (CustomerID)
+    REFERENCES Sales.Customer ( CustomerID)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Sales.SalesOrderDetail ADD CONSTRAINT FK_SalesOrderDetail_4
+    FOREIGN KEY (SalesOrderID)
+    REFERENCES Sales.SalesOrderHeader (SalesOrderID);
+
+ALTER TABLE Sales.SalesOrderDetail ADD CONSTRAINT FK_SalesOrderDetail_3
+    FOREIGN KEY (SpecialOfferID)
+    REFERENCES Sales.SpecialOfferProduct (SpecialOfferID);
+    
+      
+ALTER TABLE Sales.SpecialOfferProduct ADD CONSTRAINT FK_SpecialOfferProduct_2
+    FOREIGN KEY (ProductID)
+    REFERENCES Production.Product (ProductID)
+    ON DELETE CASCADE;
+ 
+ 
+
