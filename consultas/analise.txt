@@ -1,0 +1,34 @@
+SELECT sales_d.SalesOrderID, count(*)
+FROM sales.salesOrderDetail as sales_d
+GROUP BY sales_d.SalesOrderID
+HAVING count(*) >=3;
+
+
+SELECT prd.name
+FROM sales.salesorderdetail as sale_d, sales.specialofferproduct as sp_prd, production.product as prd 
+WHERE sale_d.specialofferid = sp_prd.specialofferid 
+    and sp_prd.productID = prd.productID 
+GROUP BY prd.daystomanufacture, prd.productID
+LIMIT 3;
+
+
+SELECT per.firstname, count(*)
+FROM person.person as per, sales.customer as sales_c, sales.salesorderheader as sales_h 
+WHERE per.BussinessEntityID = sales_c.PersonID 
+    and sales_h.customerID = sales_c.customerID
+GROUP BY per.BussinessEntityID;
+
+
+SELECT prd.ProductID, sum(sales_d.OrderQty)
+FROM sales.salesorderheader as sales_h, sales.salesorderDetail as sales_d, production.product as prd 
+WHERE sales_h.SalesOrderID = sales_d.SalesOrderID 
+    and prd.ProductID = sales_d.ProductID
+GROUP BY prd.ProductID, sales_h.OrderDate;
+
+
+SELECT sales_h.SalesOrderID, OrderDate, TotalDue
+FROM sales.salesOrderHeader as sales_h
+WHERE extract(year from sales_h.orderdate) = 2011 
+    and extract(month from sales_h.orderdate) = 09
+    and sales_h.TotalDue > 1000
+ORDER BY sales_h.TotalDue DESC;
