@@ -22,6 +22,9 @@ Foi criado um [jupyter notebook](https://github.com/johnnyy/desafio-rox/blob/mai
 
 #### Parte 2 - Criação da Infraestrutura
 
+![conceit](img/diagrama.png)
+
+
 A infraestrutura foi criada na AWS, mais especificamente:
  
 - O banco de dados Postgres foi criado no AWS RDS
